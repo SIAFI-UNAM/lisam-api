@@ -3,6 +3,8 @@ from flask import Flask, request
 from api.controllers.image_inference_controller import ImageInferenceController
 
 app = Flask(__name__)
+app.config['MAX_CONTENT_LENGTH'] = 10 * 1024 * 1024
+
 imageInferenceController = ImageInferenceController()
 
 
