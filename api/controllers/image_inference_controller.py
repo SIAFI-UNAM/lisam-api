@@ -18,6 +18,11 @@ class ImageInferenceController:
             return jsonify(response.to_dict_response())
 
         bytes_img = r.files['image'].read()
+        is_image_empty = len(bytes_img) == 0
+        if is_image_empty:
+            response = MessageErrorResponse('Image has no content')
+            return jsonify(response.to_dict_response())
+
         inference_results = self.lisam_service.inference_img_bytes(bytes_img)
 
         response = ImageInferenceResponse(inference_results)
