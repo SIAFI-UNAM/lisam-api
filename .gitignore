@@ -1,0 +1,5 @@
+/.vscode
+/test_images
+
+**/__pycache__/
+/core/lisam_net/model
