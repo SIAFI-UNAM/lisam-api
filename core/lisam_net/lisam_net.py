@@ -41,6 +41,11 @@ class LisamNet:
         )
 
         results = []
+
+        isEmptyInferences = len(classes) == 0
+        if isEmptyInferences:
+            return results
+
         for classId, confidence, box in zip(classes.flatten(),
                                             confidences.flatten(),
                                             boxes):
