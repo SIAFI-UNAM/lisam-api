@@ -1,7 +1,7 @@
-from typing import Tuple
-from flask import jsonify
-from flask.wrappers import Request, Response
+from flask.wrappers import Request
 from http import HTTPStatus
+from api.response_handler import response_handler
+from api.responses.api_response import ApiResponse
 
 from core.services.lisam_net_service import LisamNetService
 
@@ -14,18 +14,20 @@ class ImageInferenceController:
     def __init__(self) -> None:
         self.lisam_service = LisamNetService()
 
-    def handle_inference_image(self, r: Request) -> Tuple[Response, int]:
+    @response_handler
+    def handle_inference_image(self, r: Request) -> ApiResponse:
         if 'image' not in r.files:
-            response = MessageErrorResponse('Requires uploading an image')
-            return jsonify(response.to_dict_response()), HTTPStatus.BAD_REQUEST
+            return MessageErrorResponse(
+                'Requires uploading an image',
+                HTTPStatus.BAD_REQUEST)
 
         bytes_img = r.files['image'].read()
         is_image_empty = len(bytes_img) == 0
         if is_image_empty:
-            response = MessageErrorResponse('Image has no content')
-            return jsonify(response.to_dict_response()), HTTPStatus.BAD_REQUEST
+            return MessageErrorResponse(
+                'Image has no content',
+                HTTPStatus.BAD_REQUEST)
 
         inference_results = self.lisam_service.inference_img_bytes(bytes_img)
 
-        response = ImageInferenceResponse(inference_results)
-        return jsonify(response.to_dict_response()), HTTPStatus.OK
+        return ImageInferenceResponse(inference_results, HTTPStatus.OK)

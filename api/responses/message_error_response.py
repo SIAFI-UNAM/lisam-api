@@ -3,8 +3,8 @@ from api.responses.api_response import ApiResponse
 
 
 class MessageErrorResponse(ApiResponse):
-    def __init__(self, error_message: str) -> None:
-        super().__init__()
+    def __init__(self, error_message: str, status_code: int) -> None:
+        super().__init__(status_code)
 
         self.error_message = error_message
 
