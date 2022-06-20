@@ -1,4 +1,5 @@
 from typing import List
+from core.config.net_config import NetConfig
 from core.lisam_net.inference_result import InferenceResult
 from core.lisam_net.lisam_net import LisamNet
 from core.services.preprocessing_service import PreprocessingService
@@ -6,7 +7,12 @@ from core.services.preprocessing_service import PreprocessingService
 
 class LisamNetService:
     def __init__(self) -> None:
-        self.lisam_net = LisamNet()
+        self.lisam_net = LisamNet(
+            NetConfig.cfg_path,
+            NetConfig.weights_path,
+            NetConfig.names_path
+        )
+
         self.preprocessing_service = PreprocessingService()
 
     def inference_img_bytes(self, img: bytes) -> List[InferenceResult]:
