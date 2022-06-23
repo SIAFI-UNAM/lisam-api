@@ -1,4 +1,3 @@
-from cv2 import Mat
 import numpy as np
 import cv2
 

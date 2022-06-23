@@ -1,6 +1,6 @@
 from typing import List
 import cv2
-from cv2 import Mat
+import numpy as np
 
 from core.constants.const import X_INPUT_SIZE, Y_INPUT_SIZE
 from core.lisam_net.inference_result import InferenceResult
@@ -31,7 +31,7 @@ class LisamNet:
         with open(NAMES_PATH, 'rt') as f:
             self.names = f.read().rstrip('\n').split('\n')
 
-    def run_inference(self, frame: Mat) -> List[InferenceResult]:
+    def run_inference(self, frame: np.ndarray) -> List[InferenceResult]:
         classes, confidences, boxes = self.net.detect(
             frame,
             confThreshold=0.1,
