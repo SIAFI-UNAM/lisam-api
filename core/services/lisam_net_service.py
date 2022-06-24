@@ -1,4 +1,6 @@
 from typing import List
+
+import numpy as np
 from core.config.net_config import NetConfig
 from core.lisam_net.inference_result import InferenceResult
 from core.lisam_net.lisam_net import LisamNet
@@ -20,3 +22,9 @@ class LisamNetService:
         inference_result = self.lisam_net.run_inference(img_cv2)
 
         return inference_result
+
+    def inference_img(self, img: np.ndarray) -> List[InferenceResult]:
+        inference_result = self.lisam_net.run_inference(img)
+
+        return inference_result
+
