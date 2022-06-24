@@ -1,4 +1,6 @@
+import os
 from flask import Flask, request
+from dotenv import load_dotenv
 
 from api.controllers.image_inference_controller import ImageInferenceController
 
@@ -16,4 +18,6 @@ def get_image_inference():
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    load_dotenv()
+    HOST = os.getenv('HOST')
+    app.run(host=HOST)
