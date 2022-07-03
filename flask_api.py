@@ -20,4 +20,5 @@ def get_image_inference():
 if __name__ == '__main__':
     load_dotenv()
     HOST = os.getenv('HOST')
-    app.run(host=HOST)
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host=HOST, port=port)
