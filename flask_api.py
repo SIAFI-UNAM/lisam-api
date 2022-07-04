@@ -17,6 +17,11 @@ def get_image_inference():
     return imageInferenceController.handle_inference_image(req)
 
 
+@app.route('/')
+def index():
+    return 'Lisam API'
+
+
 if __name__ == '__main__':
     load_dotenv()
     HOST = os.getenv('HOST')
