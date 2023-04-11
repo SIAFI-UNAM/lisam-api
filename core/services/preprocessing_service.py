@@ -8,3 +8,8 @@ class PreprocessingService:
         cv2_img = cv2.imdecode(array_img, cv2.IMREAD_COLOR)
 
         return cv2_img
+
+    def to_graysacle(self, img: np.array) -> np.array:
+        gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+
+        return gray
