@@ -7,3 +7,5 @@
 # config files
 net_config.json
 .env
+
+/model

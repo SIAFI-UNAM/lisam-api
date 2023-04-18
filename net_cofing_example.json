@@ -1,5 +1,4 @@
 {
-    "weights_path": "...",
-    "cfg_path": "...",
+    "key_point_classifier_model_path": "...",
     "names_path": "..."
 }

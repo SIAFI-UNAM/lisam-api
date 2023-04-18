@@ -37,7 +37,7 @@ class LisamNet:
         if results.multi_hand_landmarks is None:
             return []
         
-        results: List[InferenceResult] = []
+        inference_results: List[InferenceResult] = []
         
         for hand_landmarks, handedness in zip(results.multi_hand_landmarks,
                                                   results.multi_handedness):
@@ -48,11 +48,11 @@ class LisamNet:
             
             hand_sign_id = self.keyponit_classifier.classify_landmark(pre_processed_landmark_list)
         
-            results.append(
+            inference_results.append(
                 InferenceResult(self.keypoint_classifier_labels[hand_sign_id])
             )
 
-        return results
+        return inference_results
 
     def load_hand_detention_model(self) -> None:
         mp_hands = mp.solutions.hands
