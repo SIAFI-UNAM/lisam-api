@@ -7,12 +7,8 @@ class _NetConfig:
             self.config_file = json.load(config_file)
 
     @property
-    def weights_path(self) -> str:
-        return self.config_file['weights_path']
-
-    @property
-    def cfg_path(self) -> str:
-        return self.config_file['cfg_path']
+    def key_point_classifier_model_path(self) -> str:
+        return self.config_file['key_point_classifier_model_path']
 
     @property
     def names_path(self) -> str:

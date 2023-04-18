@@ -11,7 +11,7 @@ class LisamNetService:
     def __init__(self) -> None:
         self.lisam_net = LisamNet(
             NetConfig.cfg_path,
-            NetConfig.weights_path,
+            NetConfig.key_point_classifier_model_path,
             NetConfig.names_path
         )
 
