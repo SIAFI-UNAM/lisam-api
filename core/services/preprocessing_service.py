@@ -1,6 +1,7 @@
+import io
 import numpy as np
 import cv2
-
+import PIL.Image as Image
 
 class PreprocessingService:
 
@@ -13,10 +14,13 @@ class PreprocessingService:
         return cv2.resize(img, new_size)
 
     def bytes_to_cv2_image(self, img_bytes: bytes):
-        array_img = np.fromstring(img_bytes, np.uint8)  # type: ignore
-        cv2_img = cv2.imdecode(array_img, cv2.IMREAD_COLOR)
+        image = Image.open(io.BytesIO(img_bytes)).convert('RGB') 
 
-        return cv2_img
+        np_image = np.array(image) 
+        img_cv2 = np_image[:, :, ::-1].copy() 
+        img_cv2 = cv2.cvtColor(img_cv2, cv2.COLOR_BGR2RGB)
+
+        return img_cv2
 
     def to_graysacle(self, img: np.array) -> np.array:
         gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
