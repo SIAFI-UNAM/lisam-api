@@ -1,6 +1,10 @@
+import io
 from typing import List
+import cv2
 
 import numpy as np
+import PIL.Image as Image
+
 from core.config.net_config import NetConfig
 from core.lisam_net.inference_result import InferenceResult
 from core.lisam_net.lisam_net import LisamNet
@@ -17,7 +21,15 @@ class LisamNetService:
         self.preprocessing_service = PreprocessingService()
 
     def inference_img_bytes(self, img_bytes: bytes) -> List[InferenceResult]:
-        img_cv2 = self.preprocessing_service.bytes_to_cv2_image(img_bytes)
+        filepath = './test.jpg'
+        image = Image.open(io.BytesIO(img_bytes))
+
+        image.save(filepath)
+
+        img_cv2 = cv2.imread(filepath)
+        img_cv2 = cv2.cvtColor(img_cv2, cv2.COLOR_BGR2RGB)
+        img_cv2 = self.preprocessing_service.rezize_relative(img_cv2, 0.3)
+
         inference_result = self.lisam_net.run_inference(img_cv2)
 
         return inference_result
